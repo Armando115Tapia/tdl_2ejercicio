@@ -4,14 +4,14 @@ import json
 from twisted.internet import task, reactor
 
 ## Define time
-timeout = 60.0  # Sixty seconds
+#timeout = 60.0  # Sixty seconds
 
 ## 15 Minutes
-# timeout = 60.0 * 15  # Sixty seconds
+timeout = 60.0 * 15  # Sixty seconds
 
 ## URL to make post 
-urlComplete='http://localhost:5000/tempHum'
-#urlComplete='https://backendtodolegal.herokuapp.com/tempHum'
+#urlComplete='http://localhost:5000/tempHum'
+urlComplete='https://backendtodolegal.herokuapp.com/tempHum'
 
 urlWebHook='https://webhook.site/bb5a6abe-1a7b-452e-86c8-40b2bbba00b7'
 
@@ -25,6 +25,7 @@ def doWork():
     tempC = dict_lamb()['content']['temperature']
     hum = dict_lamb()['content']['humidity']
     infoTempHum = {"temperature":tempC,"humidity":hum}
+    # Store in database
     response = requests.post(urlComplete, json = infoTempHum)
     #hit the webhook 
     responseWebHook = requests.post(urlWebHook, json = infoTempHum)
